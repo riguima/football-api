@@ -1,44 +1,34 @@
 from datetime import date
 
-import pytest
-from selenium.webdriver import Chrome
-from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
-
-from sofascore_api.api import get_games
+from football_api.api import get_games
 
 
-@pytest.fixture(scope='session')
-def driver():
-    return Chrome(service=Service(ChromeDriverManager().install()))
-
-
-def test_get_games(driver):
-    result = get_games(driver, date(2024, 4, 9), ['UEFA Champions League'])
+def test_get_games():
+    result = get_games(date(2024, 4, 9), ['UEFA Liga dos Campeões'])
     expected = {
-        'UEFA Champions League': [
+        'UEFA Liga dos Campeões': [
             {
                 'home': {
                     'name': 'Arsenal',
-                    'goals': 2,
-                    'image': 'https://api.sofascore.app/api/v1/team/42/image',
+                    'score': 2,
+                    'image': 'https://images.onefootball.com/icons/teams/164/2.png',
                 },
                 'away': {
-                    'name': 'FC Bayern München',
-                    'goals': 2,
-                    'image': 'https://api.sofascore.app/api/v1/team/2672/image',
+                    'name': 'Bayern de Munique',
+                    'score': 2,
+                    'image': 'https://images.onefootball.com/icons/teams/164/6.png',
                 },
             },
             {
                 'home': {
                     'name': 'Real Madrid',
-                    'goals': 3,
-                    'image': 'https://api.sofascore.app/api/v1/team/2829/image',
+                    'score': 3,
+                    'image': 'https://images.onefootball.com/icons/teams/164/26.png',
                 },
                 'away': {
                     'name': 'Manchester City',
-                    'goals': 3,
-                    'image': 'https://api.sofascore.app/api/v1/team/17/image',
+                    'score': 3,
+                    'image': 'https://images.onefootball.com/icons/teams/164/209.png',
                 },
             },
         ]
@@ -46,96 +36,94 @@ def test_get_games(driver):
     assert result == expected
 
 
-def test_get_games_with_multiple_competitions(driver):
-    result = get_games(
-        driver, date(2024, 4, 20), ['Brasileirão Série A', 'Premier League']
-    )
+def test_get_games_with_multiple_competitions():
+    result = get_games(date(2024, 4, 20), ['Brasileirão', 'Premier League'])
     expected = {
-        'Brasileirão Série A': [
+        'Brasileirão': [
             {
                 'home': {
                     'name': 'Fluminense',
-                    'goals': 2,
-                    'image': 'https://api.sofascore.app/api/v1/team/1961/image',
+                    'score': 2,
+                    'image': 'https://images.onefootball.com/icons/teams/164/1666.png',
                 },
                 'away': {
                     'name': 'Vasco da Gama',
-                    'goals': 1,
-                    'image': 'https://api.sofascore.app/api/v1/team/1974/image',
+                    'score': 1,
+                    'image': 'https://images.onefootball.com/icons/teams/164/1790.png',
                 },
             },
             {
                 'home': {
                     'name': 'Grêmio',
-                    'goals': 1,
-                    'image': 'https://api.sofascore.app/api/v1/team/5926/image',
+                    'score': 1,
+                    'image': 'https://images.onefootball.com/icons/teams/164/1670.png',
                 },
                 'away': {
                     'name': 'Cuiabá',
-                    'goals': 0,
-                    'image': 'https://api.sofascore.app/api/v1/team/49202/image',
+                    'score': 0,
+                    'image': 'https://images.onefootball.com/icons/teams/164/2704.png',
                 },
             },
             {
                 'home': {
-                    'name': 'Red Bull Bragantino',
-                    'goals': 1,
-                    'image': 'https://api.sofascore.app/api/v1/team/1999/image',
+                    'name': 'RB Bragantino',
+                    'score': 1,
+                    'image': 'https://images.onefootball.com/icons/teams/164/4734.png',
                 },
                 'away': {
                     'name': 'Corinthians',
-                    'goals': 0,
-                    'image': 'https://api.sofascore.app/api/v1/team/1957/image',
+                    'score': 0,
+                    'image': 'https://images.onefootball.com/icons/teams/164/1649.png',
                 },
             },
             {
                 'home': {
-                    'name': 'Atlético Mineiro',
-                    'goals': 3,
-                    'image': 'https://api.sofascore.app/api/v1/team/1977/image',
+                    'name': 'Atlético-MG',
+                    'score': 3,
+                    'image': 'https://images.onefootball.com/icons/teams/164/1683.png',
                 },
                 'away': {
                     'name': 'Cruzeiro',
-                    'goals': 0,
-                    'image': 'https://api.sofascore.app/api/v1/team/1954/image',
+                    'score': 0,
+                    'image': 'https://images.onefootball.com/icons/teams/164/1794.png',
                 },
             },
         ],
         'Premier League': [
             {
                 'home': {
-                    'name': 'Luton Town',
-                    'goals': 1,
-                    'image': 'https://api.sofascore.app/api/v1/team/72/image',
+                    'name': 'Luton Town FC',
+                    'score': 1,
+                    'image': 'https://images.onefootball.com/icons/teams/164/599.png',
                 },
                 'away': {
-                    'name': 'Brentford',
-                    'goals': 5,
-                    'image': 'https://api.sofascore.app/api/v1/team/50/image',
+                    'name': 'Brentford FC',
+                    'score': 5,
+                    'image': 'https://images.onefootball.com/icons/teams/164/671.png',
                 },
             },
             {
                 'home': {
-                    'name': 'Sheffield United',
-                    'goals': 1,
-                    'image': 'https://api.sofascore.app/api/v1/team/15/image',
+                    'name': 'Sheffield United FC',
+                    'score': 1,
+                    'image': 'https://images.onefootball.com/icons/teams/164/583.png',
                 },
                 'away': {
                     'name': 'Burnley',
-                    'goals': 4,
-                    'image': 'https://api.sofascore.app/api/v1/team/6/image',
+                    'score': 4,
+                    'image': 'https://images.onefootball.com/icons/teams/164/275.png',
                 },
             },
             {
                 'home': {
-                    'name': 'Wolverhampton',
-                    'goals': 0,
-                    'image': 'https://api.sofascore.app/api/v1/team/3/image',
+                    'name': 'Wolverhampton Wanderers',
+                    'score': 0,
+                    'image': 'https://images.onefootball.com/icons/teams/164/203.png',
                 },
                 'away': {
                     'name': 'Arsenal',
-                    'goals': 2,
-                    'image': 'https://api.sofascore.app/api/v1/team/42/image',
+                    'score': 2,
+                    'image': 'https://images.onefootball.com/icons/teams/164/2.png',
                 },
             },
         ],

@@ -12,6 +12,7 @@ toml = "*"
 selenium = "*"
 webdriver-manager = "*"
 rich = "*"
+pytest-flask = "*"
 
 [dev-packages]
 blue = "*"

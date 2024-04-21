@@ -2,7 +2,7 @@ from importlib import import_module
 
 from flask import Flask
 
-from sofascore_api.config import config
+from football_api.config import config
 
 
 def load_extensions(app):
