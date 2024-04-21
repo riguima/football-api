@@ -5,20 +5,15 @@ name = "pypi"
 
 [packages]
 httpx = "*"
-parsel = "*"
 flask = "*"
-gunicorn = "*"
 toml = "*"
-selenium = "*"
-webdriver-manager = "*"
-rich = "*"
-pytest-flask = "*"
 
 [dev-packages]
 blue = "*"
 isort = "*"
 ruff = "*"
 pytest = "*"
+pytest-flask = "*"
 
 [requires]
 python_version = "3.11"

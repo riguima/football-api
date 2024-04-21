@@ -1,6 +1,6 @@
 from datetime import date
 
-from football_api.api import get_games
+from football_api.api import get_competitions, get_games
 
 
 def test_get_games():
@@ -128,4 +128,66 @@ def test_get_games_with_multiple_competitions():
             },
         ],
     }
+    assert result == expected
+
+
+def test_get_competitions():
+    result = get_competitions(date(2024, 4, 17))
+    expected = [
+        'Brasileirão',
+        'UEFA Liga dos Campeões',
+        'Taça de Portugal',
+        '1. SNL',
+        '1ª HNL',
+        '2. Lig',
+        'AFC Champions League',
+        'AFC Cup',
+        'AFC U-23 Asian Cup',
+        'Acreano',
+        'Bulgarian Cup',
+        'CBF Brasileiro U20',
+        'Campeonato Armênio',
+        'Campeonato Nacional Feminino',
+        'Copa Argentina',
+        'Copa Verde',
+        'Copa da Coreia',
+        'Copa de la Liga Profesional',
+        'Copa do Brasil U17',
+        'Cupa Romaniei',
+        'Cypriot Cup',
+        'Czech Fortuna národní liga',
+        'Egyptian Premier League',
+        'Eliteserien',
+        'Honduras Liga Nacional',
+        'Hong Kong Premier League',
+        'J.League Cup',
+        'Kubok',
+        'Liga 1',
+        'Liga Nacional de Guatemala',
+        'Liga Principal de Futebol',
+        'Liga Pro',
+        'Liga das Estrelas',
+        'Liga de Expansión MX',
+        'Liga de Fútbol de Primera División',
+        'Liga do Golfo Arábico',
+        'LigaPro Serie A',
+        'Meistriliiga',
+        'National League',
+        'Primera A Apertura',
+        'Primera División',
+        'Primera División Apertura',
+        'Primera Nacional',
+        'Regionalliga Nord',
+        'Regionalliga Südwest',
+        'Rondoniense',
+        'SWPL 1',
+        'Scottish Premiership',
+        'Slovak Cup',
+        'Suomen Cup',
+        'Super Liga Feminina FA',
+        'Taça do Open dos Estados Unidos',
+        'Tonybet Virsliga',
+        'Torneo Apertura',
+        'VBet Premyer Liga',
+    ]
     assert result == expected
