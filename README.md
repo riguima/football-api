@@ -16,5 +16,15 @@ Rode com `flask run`
 
 ## Rotas
 
-- `/games/<date>/<competition>` - Para mostrar os jogos em uma data e competição específicas.
-- `/competitions/<date>` - Para mostrar as competições que ocorreram em uma data específica.
+- `/jogos/<date>/<competition>` - Para mostrar os jogos de uma data e competição específicas.
+- `/jogos/hoje/<competition>` - Para mostrar os jogos de hoje de competição específicas.
+- `/jogos/ontem/<competition>` - Para mostrar os jogos de ontem de competição específicas.
+- `/jogos/amanha/<competition>` - Para mostrar os jogos de amanhã de competição específicas.
+- `/jogos/<date>` - Para mostrar os jogos de todas as competições de uma data específica.
+- `/jogos/hoje` - Para mostrar os jogos de todas as competições de hoje.
+- `/jogos/ontem` - Para mostrar os jogos de todas as competições de ontem.
+- `/jogos/amanha` - Para mostrar os jogos de todas as competições de amanhã.
+- `/competicoes/<date>` - Para mostrar as competições que ocorreram de uma data específica.
+- `/competicoes/hoje` - Para mostrar as competições que ocorreram e ocorrerão hoje.
+- `/competicoes/ontem` - Para mostrar as competições que ocorreram ontem.
+- `/competicoes/amanha` - Para mostrar as competições que ocorrerão amanhã.

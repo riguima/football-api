@@ -1,4 +1,6 @@
+import json
 from datetime import date
+from pathlib import Path
 
 from football_api.api import get_competitions, get_games
 
@@ -128,6 +130,17 @@ def test_get_games_with_multiple_competitions():
             },
         ],
     }
+    assert result == expected
+
+
+def test_get_games_with_all_competitions():
+    result = get_games(date(2024, 4, 9))
+    json.dump(
+        result, open(Path('tests') / 'games-with-all-competitions.json', 'w')
+    )
+    expected = json.load(
+        open(Path('tests') / 'games-with-all-competitions.json', 'r')
+    )
     assert result == expected
 
 

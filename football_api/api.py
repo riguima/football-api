@@ -22,23 +22,25 @@ def get_matches(data):
     return result
 
 
-def get_games(date, competitions):
+def get_games(date, competitions=[]):
     result = {}
     data = get_data(date)
     for match in get_matches(data):
         competition = match['trackingEvents'][0]['typedServerParameter'][
             'competition'
         ]['value']
-        if competition in competitions:
+        if competition in competitions or not competitions:
+            home_score = match['homeTeam']['score'].split(' ')[0]
+            away_score = match['awayTeam']['score'].split(' ')[0]
             game = {
                 'home': {
                     'name': match['homeTeam']['name'],
-                    'score': int(match['homeTeam']['score'].split(' ')[0]),
+                    'score': 0 if not home_score else int(home_score),
                     'image': match['homeTeam']['imageObject']['path'],
                 },
                 'away': {
                     'name': match['awayTeam']['name'],
-                    'score': int(match['awayTeam']['score'].split(' ')[0]),
+                    'score': 0 if not away_score else int(away_score),
                     'image': match['awayTeam']['imageObject']['path'],
                 },
             }

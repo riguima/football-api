@@ -1,9 +1,16 @@
+import json
+from pathlib import Path
+
 from flask import url_for
 
 
-def test_games(client):
+def test_games_by_competition(client):
     result = client.get(
-        url_for('games', date='2024-04-18', competition='UEFA Liga Europa')
+        url_for(
+            'games_by_competition',
+            date='2024-04-18',
+            competition='UEFA Liga Europa',
+        )
     ).json
     expected = {
         'UEFA Liga Europa': [
@@ -58,6 +65,44 @@ def test_games(client):
         ]
     }
     assert result == expected
+
+
+def test_today_games_by_competition(client):
+    result = client.get(url_for('games', date='hoje', competition='UEFA Liga Europa'))
+    assert result.status_code == 200
+
+
+def test_yesterday_games_by_competition(client):
+    result = client.get(url_for('games', date='ontem', competition='UEFA Liga Europa'))
+    assert result.status_code == 200
+
+
+def test_tomorrow_games_by_competition(client):
+    result = client.get(url_for('games', date='amanha', competition='UEFA Liga Europa'))
+    assert result.status_code == 200
+
+
+def test_games(client):
+    result = client.get(url_for('games', date='2024-04-09')).json
+    expected = json.load(
+        open(Path('tests') / 'games-with-all-competitions.json')
+    )
+    assert result == expected
+
+
+def test_today_games(client):
+    result = client.get(url_for('games', date='hoje'))
+    assert result.status_code == 200
+
+
+def test_yesterday_games(client):
+    result = client.get(url_for('games', date='ontem'))
+    assert result.status_code == 200
+
+
+def test_tomorrow_games(client):
+    result = client.get(url_for('games', date='amanha'))
+    assert result.status_code == 200
 
 
 def test_competitions(client):
@@ -118,3 +163,18 @@ def test_competitions(client):
         'VBet Premyer Liga',
     ]
     assert result == expected
+
+
+def test_today_competitions(client):
+    result = client.get(url_for('competitions', date='hoje'))
+    assert result.status_code == 200
+
+
+def test_yesterday_competitions(client):
+    result = client.get(url_for('competitions', date='ontem'))
+    assert result.status_code == 200
+
+
+def test_tomorrow_competitions(client):
+    result = client.get(url_for('competitions', date='amanha'))
+    assert result.status_code == 200
