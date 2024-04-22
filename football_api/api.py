@@ -4,8 +4,11 @@ import re
 from httpx import get
 
 
-def get_data(date):
-    response = get(f'https://onefootball.com/pt-br/jogos?date={date:%Y-%m-%d}')
+def get_data(date, live=False):
+    if live:
+        response = get('https://onefootball.com/pt-br/jogos?only_live=true')
+    else:
+        response = get(f'https://onefootball.com/pt-br/jogos?date={date:%Y-%m-%d}')
     return json.loads(
         re.findall(r'\{"props".+\}', response.text, re.DOTALL)[0]
     )
@@ -22,9 +25,9 @@ def get_matches(data):
     return result
 
 
-def get_games(date, competitions=[]):
+def get_games(date, competitions=[], live=False):
     result = {}
-    data = get_data(date)
+    data = get_data(date, live)
     for match in get_matches(data):
         competition = match['trackingEvents'][0]['typedServerParameter'][
             'competition'

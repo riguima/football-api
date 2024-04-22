@@ -8,7 +8,7 @@ def test_games_by_competition(client):
     result = client.get(
         url_for(
             'games_by_competition',
-            date='2024-04-18',
+            date_string='2024-04-18',
             competition='UEFA Liga Europa',
         )
     ).json
@@ -67,46 +67,56 @@ def test_games_by_competition(client):
     assert result == expected
 
 
+def test_live_games_by_competition(client):
+    result = client.get(url_for('games', date_string='live', competition='LaLiga'))
+    assert result.status_code == 200
+
+
 def test_today_games_by_competition(client):
-    result = client.get(url_for('games', date='hoje', competition='UEFA Liga Europa'))
+    result = client.get(url_for('games', date_string='hoje', competition='UEFA Liga Europa'))
     assert result.status_code == 200
 
 
 def test_yesterday_games_by_competition(client):
-    result = client.get(url_for('games', date='ontem', competition='UEFA Liga Europa'))
+    result = client.get(url_for('games', date_string='ontem', competition='UEFA Liga Europa'))
     assert result.status_code == 200
 
 
 def test_tomorrow_games_by_competition(client):
-    result = client.get(url_for('games', date='amanha', competition='UEFA Liga Europa'))
+    result = client.get(url_for('games', date_string='amanha', competition='UEFA Liga Europa'))
     assert result.status_code == 200
 
 
 def test_games(client):
-    result = client.get(url_for('games', date='2024-04-09')).json
+    result = client.get(url_for('games', date_string='2024-04-09')).json
     expected = json.load(
         open(Path('tests') / 'games-with-all-competitions.json')
     )
     assert result == expected
 
 
+def test_live_games(client):
+    result = client.get(url_for('games', date_string='live'))
+    assert result.status_code == 200
+
+
 def test_today_games(client):
-    result = client.get(url_for('games', date='hoje'))
+    result = client.get(url_for('games', date_string='hoje'))
     assert result.status_code == 200
 
 
 def test_yesterday_games(client):
-    result = client.get(url_for('games', date='ontem'))
+    result = client.get(url_for('games', date_string='ontem'))
     assert result.status_code == 200
 
 
 def test_tomorrow_games(client):
-    result = client.get(url_for('games', date='amanha'))
+    result = client.get(url_for('games', date_string='amanha'))
     assert result.status_code == 200
 
 
 def test_competitions(client):
-    result = client.get(url_for('competitions', date='2024-04-15')).json
+    result = client.get(url_for('competitions', date_string='2024-04-15')).json
     expected = [
         'LaLiga',
         'Premier League',
@@ -166,15 +176,15 @@ def test_competitions(client):
 
 
 def test_today_competitions(client):
-    result = client.get(url_for('competitions', date='hoje'))
+    result = client.get(url_for('competitions', date_string='hoje'))
     assert result.status_code == 200
 
 
 def test_yesterday_competitions(client):
-    result = client.get(url_for('competitions', date='ontem'))
+    result = client.get(url_for('competitions', date_string='ontem'))
     assert result.status_code == 200
 
 
 def test_tomorrow_competitions(client):
-    result = client.get(url_for('competitions', date='amanha'))
+    result = client.get(url_for('competitions', date_string='amanha'))
     assert result.status_code == 200

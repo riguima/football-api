@@ -133,6 +133,10 @@ def test_get_games_with_multiple_competitions():
     assert result == expected
 
 
+def test_get_games_in_live():
+    get_games(date.today(), live=True)
+
+
 def test_get_games_with_all_competitions():
     result = get_games(date(2024, 4, 9))
     json.dump(
