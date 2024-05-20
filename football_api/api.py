@@ -1,5 +1,6 @@
 import json
 import re
+from rich import print
 
 from httpx import get
 
@@ -47,6 +48,11 @@ def get_games(date, competitions=[], live=False):
                     'image': match['awayTeam']['imageObject']['path'],
                 },
             }
+            if live:
+                try:
+                    game['time'] = int(match['timePeriod'].replace("'", ''))
+                except ValueError:
+                    game['time'] = match['timePeriod']
             if result.get(competition):
                 result[competition].append(game)
             else:
